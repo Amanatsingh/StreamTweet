@@ -1,7 +1,7 @@
 {
-  "name": "mega-project",
+  "name": "streamtweet",
   "version": "1.0.0",
-  "description": "a backend project",
+  "description": "A dynamic platform combining video streaming and microblogging",
   "type": "module",
   "main": "index.js",
   "scripts": {
