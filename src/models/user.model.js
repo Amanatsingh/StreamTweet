@@ -58,7 +58,7 @@ const userSchema = new Schema(
 userSchema.pre("save",async function(next){
     if(!this.isModified("password")) return next();         
 
-    this.password = bcrypt.hash(this.password, 10)           //encrypt   
+    this.password = await bcrypt.hash(this.password, 10)           //encrypt   
     next()
 })
 
@@ -92,4 +92,4 @@ userSchema.methods.generateRefreshToken = function(){
     )
 }
 
-export const User = Mongoose.model("User", userSchema); 
+export const User = mongoose.model("User", userSchema)    //ye User database se directly contact karega

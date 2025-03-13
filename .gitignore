@@ -71,10 +71,7 @@ web_modules/
 
 # dotenv environment variables file
 .env
-<<<<<<< HEAD
 .env.sample
-=======
->>>>>>> ed8a106c2e0e37e41ac017fb9fe64c4204e25267
 .env.test
 .env.production
 
@@ -122,3 +119,4 @@ dist
 .pnp.*
 
 # End of https://mrkandreev.name/snippets/gitignore-generator/#Node
+.DS_Store
