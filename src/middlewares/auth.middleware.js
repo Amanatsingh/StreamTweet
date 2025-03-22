@@ -1,7 +1,7 @@
-import { ApiError } from "../utils/ApiError";
-import { asyncHandler } from "../utils/asyncHandler";
+import { ApiError } from "../utils/ApiError.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
 import jwt from "jsonwebtoken";
-import {User} from "../models/user.model";
+import {User} from "../models/user.model.js";
 
 //if true login hai(tokens sahi hai), request ke andar naya object add kr denge(req.user) fir usse cookies wagera hata pyenge
 export const verifyJWT = asyncHandler(async (req, _, next) => {
@@ -17,7 +17,6 @@ export const verifyJWT = asyncHandler(async (req, _, next) => {
         const user = await User.findById(decodedToken?._id).select("-password -refreshToken")
     
         if(!user){
-            //discuss about frontend 
             return new ApiError(401, "Invalid Access Token")
         }
     
