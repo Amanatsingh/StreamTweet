@@ -256,10 +256,55 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
 })
 
 
+const changeCurrentPassword = asyncHandler(async(req, res) => {
+  //user already logged in hai ya nhi yeh check karne ke liye verifyJWT middleware use kar lenge
 
-export { 
+  const {oldPassword, newPassword} = req.body
+  
+  //req.user = user; (from auth.middleware.js)
+  const user = await User.findById(req.user?.id)
+  const isPasswordCorrect = await user.isPasswordCorrect(oldPassword)
+
+  if(!isPasswordCorrect){
+    throw new ApiError(400, "Invalid old password")
+  }
+
+  user.password = newPassword      // not saved currently
+  await user.save({ validateBeforeSave: false })    //Saves the user document to the database.
+
+  return res
+  .status(200)
+  .json(new ApiResponse(200, {}, "Password changed successfully"))
+
+
+})
+
+const getCurrentUser = asyncHandler(async(req, res) => {
+  return res
+  .status(200)
+  .json(new ApiResponse(200, req.user, "User user fetched successfully"))
+})
+
+
+//if updating a file, create a different controller
+
+const updateAccountDetails = asyncHandler(async(req, res) => {
+  const {fullName, email} = req.body
+
+  if(!fullName || !email){
+    throw new ApiError(400, "All field are required")
+  }
+
+  //req.user.
+})
+
+
+
+export {
   registerUser,
   loginUser,
   logoutUser,
-  refreshAccessToken
+  refreshAccessToken,
+  changeCurrentPassword,
+  getCurrentUser
  }
